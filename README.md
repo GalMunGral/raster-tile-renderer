@@ -32,10 +32,10 @@ The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surfa
 M(\lambda, \phi) = \Bigl[\Bigl(\tfrac{128}{\pi}(\lambda + \pi),\; \tfrac{128}{\pi}\bigl(\pi - \ln\tan(\tfrac{\pi}{4} + \tfrac{\phi}{2})\bigr),\; 1\Bigr)\Bigr]
 ```
 
-The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Tiles partition $`\mathcal{T}`$ into regions: tile $`(X, Y, Z)`$ covers
+The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Let $`N`$ be the tile size in pixels. Tiles partition $`\mathcal{T}`$ into regions: tile $`(X, Y, Z)`$ covers
 
 ```math
-\{[(x, y, 2^Z)] : x \in [256X,\ 256(X+1)),\ y \in [256Y,\ 256(Y+1))\}
+\{[(x, y, 2^Z)] : x \in [NX,\ N(X+1)),\ y \in [NY,\ N(Y+1))\}
 ```
 
 The camera is likewise a point in $`\mathcal{T}`$.
@@ -66,12 +66,12 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ### Tile placement
 
-The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in \mathcal{T}`$. Its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(256X, 256Y, 2^Z)]`$. Taking $`|_z`$ of both sides:
+The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(NX, NY, 2^Z)] \in \mathcal{T}`$. Its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(NX, NY, 2^Z)]`$. Taking $`|_z`$ of both sides:
 
 ```math
-\mathbf{d} - \mathbf{c} + \mathbf{f}|_z = (256 \cdot 2^{z-Z} X,\ 256 \cdot 2^{z-Z} Y) \implies \mathbf{d} = \mathbf{c} + (256 \cdot 2^{z-Z} X,\ 256 \cdot 2^{z-Z} Y) - \mathbf{f}|_z
+\mathbf{d} - \mathbf{c} + \mathbf{f}|_z = (N \cdot 2^{z-Z} X,\ N \cdot 2^{z-Z} Y) \implies \mathbf{d} = \mathbf{c} + (N \cdot 2^{z-Z} X,\ N \cdot 2^{z-Z} Y) - \mathbf{f}|_z
 ```
 
 ### Tile selection
 
-Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`256 \cdot 2^{z-Z} X \leq x < 256 \cdot 2^{z-Z}(X+1)`$, giving $`X = \lfloor x / (256 \cdot 2^{z-Z}) \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod 256 \cdot 2^{z-Z})`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
+Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`N \cdot 2^{z-Z} X \leq x < N \cdot 2^{z-Z}(X+1)`$, giving $`X = \lfloor x / (N \cdot 2^{z-Z}) \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod N \cdot 2^{z-Z})`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
