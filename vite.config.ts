@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src",
-  base: "/mercator/",
+  base: "/raster-tile-renderer/",
   build: {
     outDir: "../dist",
     emptyOutDir: true,

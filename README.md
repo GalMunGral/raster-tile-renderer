@@ -1,6 +1,6 @@
-# Mercator
+# Raster Tile Renderer
 
-**Live demo:** https://galmungral.github.io/mercator/
+**Live demo:** https://galmungral.github.io/raster-tile-renderer/
 
 ## Rhetorical Design
 
