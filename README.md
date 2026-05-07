@@ -29,10 +29,10 @@ where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in
 The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surface to a class in $`\mathcal{W}`$:
 
 ```math
-M(\lambda, \phi) = \bigl[(x, y, 2^z)\bigr] \quad \text{where} \quad x = \tfrac{128}{\pi} 2^z (\lambda + \pi), \quad y = \tfrac{128}{\pi} 2^z \Bigl(\pi - \ln\tan\bigl(\tfrac{\pi}{4} + \tfrac{\phi}{2}\bigr)\Bigr)
+M(\lambda, \phi) = \Bigl[\Bigl(\tfrac{128}{\pi}(\lambda + \pi),\; \tfrac{128}{\pi}\bigl(\pi - \ln\tan(\tfrac{\pi}{4} + \tfrac{\phi}{2})\bigr),\; 1\Bigr)\Bigr]
 ```
 
-The class is independent of the choice of $`z`$: scaling $`z`$ by $`2^{z'-z}`$ scales $`x`$ and $`y`$ by the same factor, leaving the equivalence class unchanged. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ lies in $`[256X,\ 256(X+1)) \times [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
+The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ lies in $`[256X,\ 256(X+1)) \times [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
