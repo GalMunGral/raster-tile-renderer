@@ -42,7 +42,7 @@ The camera is likewise a point in $`\mathcal{T}`$.
 
 ### Camera movement
 
-Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center. The camera $`\mathbf{f} \in \mathcal{T}`$ is the point in $`\mathcal{T}`$ corresponding to $`\mathbf{c}`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
+Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center and $`\mathbf{f} \in \mathcal{T}`$ the camera. Define the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{d}) = \bigl[(\mathbf{d} - \mathbf{c} + \mathbf{f}|_z,\ 2^z)\bigr]
