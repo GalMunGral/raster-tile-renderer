@@ -24,7 +24,7 @@ Let the tile coordinate space be
 \mathcal{T} = \bigl(\mathbb{R}^2 \times \mathbb{R}_{>0}\bigr) \;/\; \sim
 ```
 
-where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{T}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ selects the zoom level $`z`$.
+where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{T}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ selects the zoom level $`z`$. For $`\mathbf{p} \in \mathcal{T}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for the first two coordinates of its representative at zoom $`z`$.
 
 The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surface into $`\mathcal{T}`$:
 
@@ -42,7 +42,7 @@ The camera is likewise a point in $`\mathcal{T}`$.
 
 ### Camera movement
 
-For $`\mathbf{p} \in \mathcal{T}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center. The camera $`\mathbf{f} \in \mathcal{T}`$ is the point in $`\mathcal{T}`$ corresponding to $`\mathbf{c}`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
+Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center. The camera $`\mathbf{f} \in \mathcal{T}`$ is the point in $`\mathcal{T}`$ corresponding to $`\mathbf{c}`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{d}) = \bigl[(\mathbf{d} - \mathbf{c} + \mathbf{f}|_z,\ 2^z)\bigr]
