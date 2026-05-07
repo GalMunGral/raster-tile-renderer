@@ -52,7 +52,7 @@ where $`\mathbf{f} \in \mathcal{W}`$ is the camera — the unique point satisfyi
 
 **Panning.** A drag $`\Delta_s \in \mathbb{R}^2_s`$ maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta_s`$.
 
-**Zooming.** Let $`s = 2^{z'-z}`$. For any $`\mathbf{p} \in \mathcal{W}`$, $`\mathbf{p}|_{z'} = s\,\mathbf{p}|_z`$. The cursor $`\mathbf{e}_s`$ must satisfy $`V_{\mathbf{f}',z'}(\mathbf{p}) = \mathbf{e}_s`$ where $`\mathbf{p}`$ is the world point with $`V_{\mathbf{f},z}(\mathbf{p}) = \mathbf{e}_s`$. Solving:
+**Zooming.** Let $`s = 2^{z'-z}`$. For any $`\mathbf{p} \in \mathcal{W}`$, $`\mathbf{p}|_{z'} = s\,\mathbf{p}|_z`$. Requiring the world point under the cursor to be invariant — $`V_{\mathbf{f},z}(\mathbf{p}) = V_{\mathbf{f}',z'}(\mathbf{p}) = \mathbf{e}_s`$ — and solving for $`\mathbf{f}|_{z'}`$:
 
 ```math
 \mathbf{f}|_{z'} = s\,\mathbf{f}|_z + (s - 1)(\mathbf{e}_s - \mathbf{c}_s)
