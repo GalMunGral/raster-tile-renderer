@@ -56,10 +56,16 @@ Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \ma
 \varphi_{\mathbf{f},z}(\mathbf{e}) = \varphi_{\mathbf{f}',z'}(\mathbf{e})
 ```
 
-Expanding and solving for $`\mathbf{f}|_{z'}`$:
+Expanding, the two classes are equal iff their representatives are proportional:
 
 ```math
-\mathbf{f}|_{z'} = 2^{z'-z}\,\mathbf{f}|_z + (2^{z'-z} - 1)(\mathbf{e} - \mathbf{c})
+\bigl(\mathbf{e} - \mathbf{c} + \mathbf{f}|_z,\ 2^z\bigr) \sim \bigl(\mathbf{e} - \mathbf{c} + \mathbf{f}'|_{z'},\ 2^{z'}\bigr)
+```
+
+The scaling factor is $`\lambda = 2^{z'}/2^z = 2^{z'-z}`$, giving $`\mathbf{e} - \mathbf{c} + \mathbf{f}'|_{z'} = 2^{z'-z}(\mathbf{e} - \mathbf{c} + \mathbf{f}|_z)`$, and therefore:
+
+```math
+\mathbf{f}'|_{z'} = 2^{z'-z}\,\mathbf{f}|_z + (2^{z'-z} - 1)(\mathbf{e} - \mathbf{c})
 ```
 
 ### Tile placement
