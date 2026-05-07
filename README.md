@@ -32,7 +32,7 @@ The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surfa
 M(\lambda, \phi) = \Bigl[\Bigl(\tfrac{128}{\pi}(\lambda + \pi),\; \tfrac{128}{\pi}\bigl(\pi - \ln\tan(\tfrac{\pi}{4} + \tfrac{\phi}{2})\bigr),\; 1\Bigr)\Bigr]
 ```
 
-The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Let $`N`$ be the tile size in pixels. Tiles partition $`\mathcal{T}`$ into regions: tile $`(X, Y, Z)`$ covers
+Let $`N`$ be the tile size in pixels. Tiles partition $`\mathcal{T}`$ into regions: tile $`(X, Y, Z)`$ covers
 
 ```math
 \{[(x, y, 2^Z)] : x \in [NX,\ N(X+1)),\ y \in [NY,\ N(Y+1))\}
