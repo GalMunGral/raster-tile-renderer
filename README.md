@@ -74,4 +74,4 @@ The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(NX, NY, 2^Z)] \in \ma
 
 ### Tile selection
 
-Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`N \cdot 2^{z-Z} X \leq x < N \cdot 2^{z-Z}(X+1)`$, giving $`X = \lfloor x / (N \cdot 2^{z-Z}) \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod N \cdot 2^{z-Z})`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
+Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`N \cdot 2^{z-Z} X \leq x < N \cdot 2^{z-Z}(X+1)`$, giving $`X = \lfloor x / (N \cdot 2^{z-Z}) \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod N \cdot 2^{z-Z})`$. From the placement formula, tile $`(X + \Delta X, Y + \Delta Y, Z)`$ is offset by $`(N \cdot 2^{z-Z} \cdot \Delta X,\ N \cdot 2^{z-Z} \cdot \Delta Y)`$ from tile $`(X, Y, Z)`$ on screen. The visible range is all $`(\Delta X, \Delta Y)`$ for which that offset still intersects the canvas.
