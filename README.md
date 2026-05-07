@@ -20,6 +20,8 @@ A raster tile renderer built from scratch on a 2D canvas. No mapping library. Th
 
 At integer zoom $`Z`$, the world maps to a $`256 \cdot 2^Z \times 256 \cdot 2^Z`$ pixel square. Tile $`(X, Y, Z)`$ occupies the $`256 \times 256`$ block at $`(256X,\ 256Y)`$. At fractional zoom $`z`$, tiles are scaled by $`s = 2^{z-Z}`$, appearing as $`256s`$ pixels wide on screen.
 
+Two coordinates $`(x, y, z)`$ and $`(x', y', z')`$ refer to the same geographic point iff $`x' = 2^{z'-z} x`$ and $`y' = 2^{z'-z} y`$. Substituting $`w = 2^z`$, this is exactly the equivalence relation of homogeneous coordinates: $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$. Tile coordinates are projective coordinates in disguise.
+
 ### Camera movement
 
 The camera is a focus point $`\mathbf{f}`$ — the world-pixel coordinate that maps to $`\mathbf{c} = (w/2, h/2)`$, the center of the canvas. Screen-space drag maps 1:1 to world-pixel displacement at the current zoom, so panning is trivial: $`\mathbf{f}' = \mathbf{f} + \Delta`$.
