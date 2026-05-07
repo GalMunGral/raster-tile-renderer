@@ -48,11 +48,11 @@ Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center and $`\mathbf{f} \in \mathc
 \varphi_{\mathbf{f},z}(\mathbf{d}) = \bigl[(\mathbf{d} - \mathbf{c} + \mathbf{f}|_z,\ 2^z)\bigr]
 ```
 
-Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a world point.
+Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a point in $`\mathcal{T}`$.
 
-**Panning.** A drag $`\Delta`$ maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta`$.
+**Panning.** A drag $`\Delta`$ maps 1:1 to displacement in $`|_z`$ coordinates: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta`$.
 
-**Zooming.** Let $`s = 2^{z'-z}`$. The world point under the cursor must be invariant:
+**Zooming.** Let $`s = 2^{z'-z}`$. The point in $`\mathcal{T}`$ under the cursor must be invariant:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{e}) = \varphi_{\mathbf{f}',z'}(\mathbf{e})
