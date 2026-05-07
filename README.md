@@ -50,7 +50,7 @@ Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \ma
 
 **Panning.** A drag $`\Delta`$ maps 1:1 to displacement in $`|_z`$ coordinates: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta`$.
 
-**Zooming.** The point in $`\mathcal{T}`$ under the cursor must be invariant:
+**Zooming.** Let $`\mathbf{e}`$ be the cursor position, $`z'`$ the new zoom level, and $`\mathbf{f}' \in \mathcal{T}`$ the new center. The point in $`\mathcal{T}`$ under $`\mathbf{e}`$ must be invariant:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{e}) = \varphi_{\mathbf{f}',z'}(\mathbf{e})
