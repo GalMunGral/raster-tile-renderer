@@ -66,12 +66,12 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ### Tile placement
 
-The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in \mathcal{T}`$. Its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(256X, 256Y, 2^Z)]`$. Taking $`|_z`$ of both sides with $`s = 2^{z-Z}`$:
+The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in \mathcal{T}`$. Its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(256X, 256Y, 2^Z)]`$. Taking $`|_z`$ of both sides:
 
 ```math
-\mathbf{d} - \mathbf{c} + \mathbf{f}|_z = (256sX,\ 256sY) \implies \mathbf{d} = \mathbf{c} + (256sX,\ 256sY) - \mathbf{f}|_z
+\mathbf{d} - \mathbf{c} + \mathbf{f}|_z = (256 \cdot 2^{z-Z} X,\ 256 \cdot 2^{z-Z} Y) \implies \mathbf{d} = \mathbf{c} + (256 \cdot 2^{z-Z} X,\ 256 \cdot 2^{z-Z} Y) - \mathbf{f}|_z
 ```
 
 ### Tile selection
 
-Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`256sX \leq x < 256s(X+1)`$, giving $`X = \lfloor x / 256s \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
+Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`256 \cdot 2^{z-Z} X \leq x < 256 \cdot 2^{z-Z}(X+1)`$, giving $`X = \lfloor x / (256 \cdot 2^{z-Z}) \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod 256 \cdot 2^{z-Z})`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
