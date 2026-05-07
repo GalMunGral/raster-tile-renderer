@@ -18,21 +18,21 @@ A raster tile renderer built from scratch on a 2D canvas. No mapping library. Th
 
 ### Coordinate system
 
-At zoom $`z`$, the world maps to a $`256 \cdot 2^z \times 256 \cdot 2^z`$ pixel square, and tile $`(X, Y, Z)`$ occupies the $`256 \times 256`$ block at $`(256X, 256Y)`$ at integer zoom $`Z`$. Two coordinates $`(x, y, z)`$ and $`(x', y', z')`$ refer to the same geographic point iff
+Let the world coordinate space be
 
 ```math
-x' = 2^{z' - z}\, x, \qquad y' = 2^{z' - z}\, y
+\mathcal{W} = \bigl(\mathbb{R}^2 \times \mathbb{R}_{>0}\bigr) \;/\; \sim
 ```
 
-Setting $`w = 2^z`$, this is the equivalence relation of homogeneous coordinates: $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$. Tile coordinates are projective coordinates — a tile address $`(X, Y, Z)`$ is the homogeneous point $`[256X : 256Y : 2^Z]`$.
+where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{W}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ for integer $`Z`$ or fractional $`z`$ selects the zoom level. Tile $`(X, Y, Z)`$ is the class $`[(256X,\ 256Y,\ 2^Z)] \in \mathcal{W}`$.
 
 ### Camera movement
 
-The camera is a focus point $`\mathbf{f} = (f_x, f_y)`$ at zoom $`z`$ — the world-pixel coordinate that maps to the canvas center $`\mathbf{c} = (W/2, H/2)`$. The canvas position of any world-pixel coordinate $`\mathbf{p}`$ is $`\mathbf{c} + \mathbf{p} - \mathbf{f}`$.
+The camera is a point $`[(f_x, f_y, 2^z)] \in \mathcal{W}`$, whose representative at zoom $`z`$ places $`(f_x, f_y)`$ at the canvas center $`\mathbf{c} = (W/2, H/2)`$. The canvas position of any point $`\mathbf{p} \in \mathbb{R}^2`$ at the same representative is $`\mathbf{c} + \mathbf{p} - \mathbf{f}`$.
 
-**Panning.** A screen-space drag $`\Delta`$ maps 1:1 to world-pixel displacement, so $`\mathbf{f}' = \mathbf{f} + \Delta`$.
+**Panning.** A screen-space drag $`\Delta`$ maps 1:1 to world-pixel displacement at the current representative: $`\mathbf{f}' = \mathbf{f} + \Delta`$.
 
-**Zooming.** Let $`s = 2^{z' - z}`$. The world point currently under cursor $`\mathbf{e}`$ is $`\mathbf{p} = \mathbf{f} + (\mathbf{e} - \mathbf{c})`$. In homogeneous coordinates, its representative at zoom $`z'`$ is $`\mathbf{p}' = s\mathbf{p}`$. Requiring $`\mathbf{p}'`$ to remain under $`\mathbf{e}`$ — i.e. $`\mathbf{c} + \mathbf{p}' - \mathbf{f}' = \mathbf{e}`$ — gives:
+**Zooming.** Changing zoom selects a new representative scaled by $`s = 2^{z'-z}`$. The world point under cursor $`\mathbf{e}`$ is $`\mathbf{p} = \mathbf{f} + (\mathbf{e} - \mathbf{c})`$; its representative at $`z'`$ is $`\mathbf{p}' = s\mathbf{p}`$. Requiring $`\mathbf{p}'`$ to remain under $`\mathbf{e}`$, i.e. $`\mathbf{c} + \mathbf{p}' - \mathbf{f}' = \mathbf{e}`$, gives:
 
 ```math
 \mathbf{f}' = s\mathbf{f} + (s - 1)(\mathbf{e} - \mathbf{c})
@@ -40,7 +40,7 @@ The camera is a focus point $`\mathbf{f} = (f_x, f_y)`$ at zoom $`z`$ — the wo
 
 ### Tile placement
 
-Tile $`(X, Y, Z)`$ has its corner at homogeneous point $`[256X : 256Y : 2^Z]`$. Dehomogenizing to zoom $`z`$ by multiplying by $`2^z / 2^Z = s`$ gives world-pixel coordinate $`(256Xs,\ 256Ys)`$. Its canvas position follows from the camera formula:
+Tile $`(X, Y, Z)`$ has representative $`(256X,\ 256Y)`$ at zoom $`z`$ where $`s = 2^{z-Z}`$. Its canvas position follows from the camera formula:
 
 ```math
 d_x = c_x + 256s \cdot X - f_x, \qquad d_y = c_y + 256s \cdot Y - f_y
@@ -48,4 +48,4 @@ d_x = c_x + 256s \cdot X - f_x, \qquad d_y = c_y + 256s \cdot Y - f_y
 
 ### Tile selection
 
-The tile containing the focus satisfies $`256Xs \leq f_x < 256(X+1)s`$, so $`X = \lfloor f_x / 256s \rfloor`$, and its left edge lands at canvas $`x = c_x - (f_x \bmod 256s)`$. The visible range extends from there until tiles cover the full canvas width, and analogously for $`Y`$.
+The tile containing the focus satisfies $`256sX \leq f_x < 256s(X+1)`$, giving $`X = \lfloor f_x / 256s \rfloor`$, with its left edge at canvas $`x = c_x - (f_x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
