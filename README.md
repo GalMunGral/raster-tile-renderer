@@ -42,20 +42,20 @@ The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
-For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c}_s = (W/2, H/2)`$ be the canvas center in screen space $`\mathbb{R}^2_s`$. The camera $`\mathbf{f} \in \mathcal{W}`$ is the world point corresponding to the canvas center $`\mathbf{c}_s`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-world map $`V^{-1}_{\mathbf{f},z} : \mathbb{R}^2_s \to \mathcal{W}`$:
+For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c}_s = (W/2, H/2)`$ be the canvas center in screen space $`\mathbb{R}^2_s`$. The camera $`\mathbf{f} \in \mathcal{W}`$ is the world point corresponding to the canvas center $`\mathbf{c}_s`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-world map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2_s \to \mathcal{W}`$:
 
 ```math
-V^{-1}_{\mathbf{f},z}(\mathbf{d}_s) = \bigl[(\mathbf{d}_s - \mathbf{c}_s + \mathbf{f}|_z,\ 2^z)\bigr]
+\varphi_{\mathbf{f},z}(\mathbf{d}_s) = \bigl[(\mathbf{d}_s - \mathbf{c}_s + \mathbf{f}|_z,\ 2^z)\bigr]
 ```
 
-Its inverse $`V_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c}_s + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a world point.
+Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c}_s + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a world point.
 
 **Panning.** A drag $`\Delta_s \in \mathbb{R}^2_s`$ maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta_s`$.
 
 **Zooming.** Let $`s = 2^{z'-z}`$. The world point under the cursor must be invariant:
 
 ```math
-V^{-1}_{\mathbf{f},z}(\mathbf{e}_s) = V^{-1}_{\mathbf{f}',z'}(\mathbf{e}_s)
+\varphi_{\mathbf{f},z}(\mathbf{e}_s) = \varphi_{\mathbf{f}',z'}(\mathbf{e}_s)
 ```
 
 Expanding and solving for $`\mathbf{f}|_{z'}`$:
@@ -66,7 +66,7 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ### Tile placement
 
-Tile $`(X, Y, Z)`$ is the point $`\mathbf{t} = [(256X, 256Y, 2^Z)] \in \mathcal{W}`$, with $`\mathbf{t}|_z = (256sX, 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position is $`V_{\mathbf{f},z}(\mathbf{t})`$:
+Tile $`(X, Y, Z)`$ is the point $`\mathbf{t} = [(256X, 256Y, 2^Z)] \in \mathcal{W}`$, with $`\mathbf{t}|_z = (256sX, 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position is $`\psi_{\mathbf{f},z}(\mathbf{t})`$:
 
 ```math
 \mathbf{d}_s = \mathbf{c}_s + (256sX,\ 256sY) - \mathbf{f}|_z
