@@ -42,23 +42,23 @@ The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
-For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c}_s = (W/2, H/2)`$ be the canvas center in screen space $`\mathbb{R}^2_s`$. Define the viewport map $`V_{\mathbf{f},z} : \mathcal{W} \to \mathbb{R}^2_s`$ by:
+For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c}_s = (W/2, H/2)`$ be the canvas center in screen space $`\mathbb{R}^2_s`$. The camera $`\mathbf{f} \in \mathcal{W}`$ is the world point corresponding to the canvas center $`\mathbf{c}_s`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-world map $`V^{-1}_{\mathbf{f},z} : \mathbb{R}^2_s \to \mathcal{W}`$:
 
 ```math
-V_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c}_s + \mathbf{p}|_z - \mathbf{f}|_z
+V^{-1}_{\mathbf{f},z}(\mathbf{d}_s) = \bigl[(\mathbf{d}_s - \mathbf{c}_s + \mathbf{f}|_z,\ 2^z)\bigr]
 ```
 
-where $`\mathbf{f} \in \mathcal{W}`$ is the camera — the unique point satisfying $`V_{\mathbf{f},z}(\mathbf{f}) = \mathbf{c}_s`$.
+Its inverse $`V_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c}_s + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a world point.
 
 **Panning.** A drag $`\Delta_s \in \mathbb{R}^2_s`$ maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta_s`$.
 
-**Zooming.** Let $`s = 2^{z'-z}`$. For any $`\mathbf{p} \in \mathcal{W}`$, $`\mathbf{p}|_{z'} = s\,\mathbf{p}|_z`$. Requiring the world point under the cursor to be invariant:
+**Zooming.** Let $`s = 2^{z'-z}`$. The world point under the cursor must be invariant:
 
 ```math
-V_{\mathbf{f},z}(\mathbf{p}) = V_{\mathbf{f}',z'}(\mathbf{p}) = \mathbf{e}_s
+V^{-1}_{\mathbf{f},z}(\mathbf{e}_s) = V^{-1}_{\mathbf{f}',z'}(\mathbf{e}_s)
 ```
 
-and solving for $`\mathbf{f}|_{z'}`$:
+Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ```math
 \mathbf{f}|_{z'} = s\,\mathbf{f}|_z + (s - 1)(\mathbf{e}_s - \mathbf{c}_s)
