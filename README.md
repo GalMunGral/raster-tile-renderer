@@ -18,15 +18,21 @@ A raster tile renderer built from scratch on a 2D canvas. No mapping library. Th
 
 ### Coordinate system
 
-At integer zoom $`Z`$, the world maps to a $`256 \cdot 2^Z \times 256 \cdot 2^Z`$ pixel square. Tile $`(X, Y, Z)`$ occupies the $`256 \times 256`$ block at $`(256X,\ 256Y)`$. At fractional zoom $`z`$, tiles are scaled by $`s = 2^{z-Z}`$, appearing as $`256s`$ pixels wide on screen.
+At zoom $`z`$, the world maps to a $`256 \cdot 2^z \times 256 \cdot 2^z`$ pixel square, and tile $`(X, Y, Z)`$ occupies the $`256 \times 256`$ block at $`(256X, 256Y)`$ at integer zoom $`Z`$. Two coordinates $`(x, y, z)`$ and $`(x', y', z')`$ refer to the same geographic point iff
 
-Two coordinates $`(x, y, z)`$ and $`(x', y', z')`$ refer to the same geographic point iff $`x' = 2^{z'-z} x`$ and $`y' = 2^{z'-z} y`$. Substituting $`w = 2^z`$, this is exactly the equivalence relation of homogeneous coordinates: $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$. Tile coordinates are projective coordinates in disguise.
+```math
+x' = 2^{z' - z}\, x, \qquad y' = 2^{z' - z}\, y
+```
+
+Setting $`w = 2^z`$, this is the equivalence relation of homogeneous coordinates: $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$. Tile coordinates are projective coordinates — a tile address $`(X, Y, Z)`$ is the homogeneous point $`[256X : 256Y : 2^Z]`$.
 
 ### Camera movement
 
-The camera is a focus point $`\mathbf{f}`$ — the world-pixel coordinate that maps to $`\mathbf{c} = (w/2, h/2)`$, the center of the canvas. Screen-space drag maps 1:1 to world-pixel displacement at the current zoom, so panning is trivial: $`\mathbf{f}' = \mathbf{f} + \Delta`$.
+The camera is a focus point $`\mathbf{f} = (f_x, f_y)`$ at zoom $`z`$ — the world-pixel coordinate that maps to the canvas center $`\mathbf{c} = (W/2, H/2)`$. The canvas position of any world-pixel coordinate $`\mathbf{p}`$ is $`\mathbf{c} + \mathbf{p} - \mathbf{f}`$.
 
-Zooming is more involved. When zoom changes by $`\Delta z`$, world-pixel coordinates scale by $`s = 2^{\Delta z}`$. To keep the point under the cursor $`\mathbf{e}`$ fixed on screen, the world point beneath it before the zoom — $`\mathbf{f} + (\mathbf{e} - \mathbf{c})`$ — must remain under $`\mathbf{e}`$ after. This requires:
+**Panning.** A screen-space drag $`\Delta`$ maps 1:1 to world-pixel displacement, so $`\mathbf{f}' = \mathbf{f} + \Delta`$.
+
+**Zooming.** Let $`s = 2^{z' - z}`$. The world point currently under cursor $`\mathbf{e}`$ is $`\mathbf{p} = \mathbf{f} + (\mathbf{e} - \mathbf{c})`$. In homogeneous coordinates, its representative at zoom $`z'`$ is $`\mathbf{p}' = s\mathbf{p}`$. Requiring $`\mathbf{p}'`$ to remain under $`\mathbf{e}`$ — i.e. $`\mathbf{c} + \mathbf{p}' - \mathbf{f}' = \mathbf{e}`$ — gives:
 
 ```math
 \mathbf{f}' = s\mathbf{f} + (s - 1)(\mathbf{e} - \mathbf{c})
@@ -34,12 +40,12 @@ Zooming is more involved. When zoom changes by $`\Delta z`$, world-pixel coordin
 
 ### Tile placement
 
-Tile $`(X, Y)`$ draws at canvas position:
+Tile $`(X, Y, Z)`$ has its corner at homogeneous point $`[256X : 256Y : 2^Z]`$. Dehomogenizing to zoom $`z`$ by multiplying by $`2^z / 2^Z = s`$ gives world-pixel coordinate $`(256Xs,\ 256Ys)`$. Its canvas position follows from the camera formula:
 
 ```math
-d_x = c_x + 256s \cdot X - f_x, \quad d_y = c_y + 256s \cdot Y - f_y
+d_x = c_x + 256s \cdot X - f_x, \qquad d_y = c_y + 256s \cdot Y - f_y
 ```
 
 ### Tile selection
 
-The tile containing the focus is $`(\lfloor f_x / 256s \rfloor,\ \lfloor f_y / 256s \rfloor)`$. Its left edge lands at canvas $`x = c_x - (f_x \bmod 256s)`$. The visible range extends left and right from there until tiles cover the full canvas width, and analogously for $`Y`$.
+The tile containing the focus satisfies $`256Xs \leq f_x < 256(X+1)s`$, so $`X = \lfloor f_x / 256s \rfloor`$, and its left edge lands at canvas $`x = c_x - (f_x \bmod 256s)`$. The visible range extends from there until tiles cover the full canvas width, and analogously for $`Y`$.
