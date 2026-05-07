@@ -40,7 +40,7 @@ Let $`N`$ be the tile size in pixels. Tiles partition $`\mathcal{T}`$ into regio
 
 ### Camera movement
 
-Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center and $`\mathbf{f} \in \mathcal{T}`$ the camera. Define the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
+Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center and $`\mathbf{f} \in \mathcal{T}`$ the point currently centered on screen. Define the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{d}) = \bigl[(\mathbf{d} - \mathbf{c} + \mathbf{f}|_z,\ 2^z)\bigr]
