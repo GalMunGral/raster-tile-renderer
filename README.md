@@ -26,13 +26,13 @@ Let the world coordinate space be
 
 where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{W}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ selects the zoom level $`z`$.
 
-The Mercator projection $`M(\lambda, \phi) \in \mathcal{W}`$ maps longitude $`\lambda`$ and latitude $`\phi`$ to the class whose representative at zoom $`z`$ is:
+The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surface to a class in $`\mathcal{W}`$:
 
 ```math
-x = \tfrac{128}{\pi} 2^z (\lambda + \pi), \qquad y = \tfrac{128}{\pi} 2^z \Bigl(\pi - \ln\tan\bigl(\tfrac{\pi}{4} + \tfrac{\phi}{2}\bigr)\Bigr)
+M(\lambda, \phi) = \bigl[(x, y, 2^z)\bigr] \quad \text{where} \quad x = \tfrac{128}{\pi} 2^z (\lambda + \pi), \quad y = \tfrac{128}{\pi} 2^z \Bigl(\pi - \ln\tan\bigl(\tfrac{\pi}{4} + \tfrac{\phi}{2}\bigr)\Bigr)
 ```
 
-Scaling both coordinates by $`2^{z'-z}`$ yields the representative at zoom $`z'`$, so the class is well-defined. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ lies in $`[256X,\ 256(X+1)) \times [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
+The class is independent of the choice of $`z`$: scaling $`z`$ by $`2^{z'-z}`$ scales $`x`$ and $`y`$ by the same factor, leaving the equivalence class unchanged. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ lies in $`[256X,\ 256(X+1)) \times [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
