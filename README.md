@@ -70,7 +70,7 @@ The scaling factor is $`\lambda = 2^{z'}/2^z = 2^{z'-z}`$, giving $`\mathbf{e} -
 
 ### Tile placement
 
-The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(NX, NY, 2^Z)] \in \mathcal{T}`$. Its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(NX, NY, 2^Z)]`$. Taking $`|_z`$ of both sides:
+The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(NX, NY, 2^Z)] \in \mathcal{T}`$. Given center $`\mathbf{f}`$ at zoom $`z`$, its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(NX, NY, 2^Z)]`$. Taking $`|_z`$ of both sides:
 
 ```math
 \mathbf{d} - \mathbf{c} + \mathbf{f}|_z = 2^{z-Z}(NX,\ NY) \implies \mathbf{d} = \mathbf{c} + 2^{z-Z}(NX,\ NY) - \mathbf{f}|_z
