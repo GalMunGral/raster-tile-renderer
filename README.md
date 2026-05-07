@@ -18,31 +18,31 @@ A raster tile renderer built from scratch on a 2D canvas. No mapping library. Th
 
 ### Coordinate system
 
-Let the world coordinate space be
+Let the tile coordinate space be
 
 ```math
-\mathcal{W} = \bigl(\mathbb{R}^2 \times \mathbb{R}_{>0}\bigr) \;/\; \sim
+\mathcal{T} = \bigl(\mathbb{R}^2 \times \mathbb{R}_{>0}\bigr) \;/\; \sim
 ```
 
-where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{W}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ selects the zoom level $`z`$.
+where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{T}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ selects the zoom level $`z`$.
 
-The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surface to a class in $`\mathcal{W}`$:
+The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surface into $`\mathcal{T}`$:
 
 ```math
 M(\lambda, \phi) = \Bigl[\Bigl(\tfrac{128}{\pi}(\lambda + \pi),\; \tfrac{128}{\pi}\bigl(\pi - \ln\tan(\tfrac{\pi}{4} + \tfrac{\phi}{2})\bigr),\; 1\Bigr)\Bigr]
 ```
 
-The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers
+The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Tiles partition $`\mathcal{T}`$ into regions: tile $`(X, Y, Z)`$ covers
 
 ```math
 \{[(x, y, 2^Z)] : x \in [256X,\ 256(X+1)),\ y \in [256Y,\ 256(Y+1))\}
 ```
 
-The camera is likewise a point in $`\mathcal{W}`$.
+The camera is likewise a point in $`\mathcal{T}`$.
 
 ### Camera movement
 
-For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center. The camera $`\mathbf{f} \in \mathcal{W}`$ is the world point corresponding to $`\mathbf{c}`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-world map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{W}`$:
+For $`\mathbf{p} \in \mathcal{T}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center. The camera $`\mathbf{f} \in \mathcal{T}`$ is the point in $`\mathcal{T}`$ corresponding to $`\mathbf{c}`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-$`\mathcal{T}`$ map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{T}`$:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{d}) = \bigl[(\mathbf{d} - \mathbf{c} + \mathbf{f}|_z,\ 2^z)\bigr]
@@ -66,7 +66,7 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ### Tile placement
 
-Tile $`(X, Y, Z)`$ is the point $`\mathbf{t} = [(256X, 256Y, 2^Z)] \in \mathcal{W}`$, with $`\mathbf{t}|_z = (256sX, 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position is $`\psi_{\mathbf{f},z}(\mathbf{t})`$:
+Tile $`(X, Y, Z)`$ is the point $`\mathbf{t} = [(256X, 256Y, 2^Z)] \in \mathcal{T}`$, with $`\mathbf{t}|_z = (256sX, 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position is $`\psi_{\mathbf{f},z}(\mathbf{t})`$:
 
 ```math
 \mathbf{d} = \mathbf{c} + (256sX,\ 256sY) - \mathbf{f}|_z
