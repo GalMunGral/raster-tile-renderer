@@ -42,24 +42,30 @@ The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
-The camera is a point $`[(f_x, f_y, 2^z)] \in \mathcal{W}`$, whose representative at zoom $`z`$ places $`(f_x, f_y)`$ at the canvas center $`\mathbf{c} = (W/2, H/2)`$. The canvas position of any point $`\mathbf{p} \in \mathbb{R}^2`$ at the same representative is $`\mathbf{c} + \mathbf{p} - \mathbf{f}`$.
+For a point $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c}_s = (W/2, H/2) \in \mathbb{R}^2`$ denote the canvas center in screen space.
 
-**Panning.** A screen-space drag $`\Delta`$ maps 1:1 to world-pixel displacement at the current representative: $`\mathbf{f}' = \mathbf{f} + \Delta`$.
-
-**Zooming.** Changing zoom selects a new representative scaled by $`s = 2^{z'-z}`$. The world point under cursor $`\mathbf{e}`$ is $`\mathbf{p} = \mathbf{f} + (\mathbf{e} - \mathbf{c})`$; its representative at $`z'`$ is $`\mathbf{p}' = s\mathbf{p}`$. Requiring $`\mathbf{p}'`$ to remain under $`\mathbf{e}`$, i.e. $`\mathbf{c} + \mathbf{p}' - \mathbf{f}' = \mathbf{e}`$, gives:
+The camera is a point $`\mathbf{f} \in \mathcal{W}`$ such that $`\mathbf{f}|_z`$ maps to $`\mathbf{c}_s`$. The canvas position of any $`\mathbf{p} \in \mathcal{W}`$ is:
 
 ```math
-\mathbf{f}' = s\mathbf{f} + (s - 1)(\mathbf{e} - \mathbf{c})
+\mathbf{d}_s = \mathbf{c}_s + \mathbf{p}|_z - \mathbf{f}|_z
+```
+
+**Panning.** A drag $`\Delta_s \in \mathbb{R}^2`$ in screen space maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta_s`$.
+
+**Zooming.** Let $`s = 2^{z'-z}`$. The world point under cursor $`\mathbf{e}_s \in \mathbb{R}^2`$ satisfies $`\mathbf{p}|_z = \mathbf{f}|_z + (\mathbf{e}_s - \mathbf{c}_s)`$, and its representative at $`z'`$ is $`\mathbf{p}|_{z'} = s\,\mathbf{p}|_z`$. Requiring $`\mathbf{p}|_{z'}`$ to remain under $`\mathbf{e}_s`$, i.e. $`\mathbf{c}_s + \mathbf{p}|_{z'} - \mathbf{f}|_{z'} = \mathbf{e}_s`$, gives:
+
+```math
+\mathbf{f}|_{z'} = s\,\mathbf{f}|_z + (s - 1)(\mathbf{e}_s - \mathbf{c}_s)
 ```
 
 ### Tile placement
 
-Tile $`(X, Y, Z)`$ has representative $`(256X,\ 256Y)`$ at zoom $`z`$ where $`s = 2^{z-Z}`$. Its canvas position follows from the camera formula:
+Tile $`(X, Y, Z)`$ has representative $`(256X,\ 256Y)`$ at zoom $`Z`$, so $`[(256X, 256Y, 2^Z)]|_z = (256sX,\ 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position:
 
 ```math
-d_x = c_x + 256s \cdot X - f_x, \qquad d_y = c_y + 256s \cdot Y - f_y
+\mathbf{d}_s = \mathbf{c}_s + (256sX,\ 256sY) - \mathbf{f}|_z
 ```
 
 ### Tile selection
 
-The tile containing the focus satisfies $`256sX \leq f_x < 256s(X+1)`$, giving $`X = \lfloor f_x / 256s \rfloor`$, with its left edge at canvas $`x = c_x - (f_x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
+The tile containing $`\mathbf{f}`$ satisfies $`256sX \leq f_x < 256s(X+1)`$, giving $`X = \lfloor f_x / 256s \rfloor`$ where $`(f_x, f_y) = \mathbf{f}|_z`$. Its left edge lands at screen $`x_s = c_x - (f_x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
