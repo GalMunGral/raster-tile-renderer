@@ -24,7 +24,15 @@ Let the world coordinate space be
 \mathcal{W} = \bigl(\mathbb{R}^2 \times \mathbb{R}_{>0}\bigr) \;/\; \sim
 ```
 
-where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{W}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ for integer $`Z`$ or fractional $`z`$ selects the zoom level. Tile $`(X, Y, Z)`$ is the class $`[(256X,\ 256Y,\ 2^Z)] \in \mathcal{W}`$.
+where $`(x, y, w) \sim (\lambda x, \lambda y, \lambda w)`$ for all $`\lambda \in \mathbb{R}_{>0}`$. This is the affine chart $`w > 0`$ of $`\mathbb{RP}^2`$, homeomorphic to $`\mathbb{R}^2`$. A point in $`\mathcal{W}`$ is represented by a triple $`(x, y, w)`$; choosing $`w = 2^z`$ selects the zoom level $`z`$.
+
+The Mercator projection $`M(\lambda, \phi) \in \mathcal{W}`$ maps longitude $`\lambda`$ and latitude $`\phi`$ to the class whose representative at zoom $`z`$ is:
+
+```math
+x = \tfrac{128}{\pi} 2^z (\lambda + \pi), \qquad y = \tfrac{128}{\pi} 2^z \Bigl(\pi - \ln\tan\bigl(\tfrac{\pi}{4} + \tfrac{\phi}{2}\bigr)\Bigr)
+```
+
+Scaling both coordinates by $`2^{z'-z}`$ yields the representative at zoom $`z'`$, so the class is well-defined. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ lies in $`[256X,\ 256(X+1)) \times [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
