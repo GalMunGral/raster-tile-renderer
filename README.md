@@ -66,7 +66,7 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ### Tile placement
 
-Tile $`(X, Y, Z)`$ is the point $`\mathbf{t} = [(256X, 256Y, 2^Z)] \in \mathcal{T}`$, with $`\mathbf{t}|_z = (256sX, 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position is $`\psi_{\mathbf{f},z}(\mathbf{t})`$:
+Tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in \mathcal{T}`$. Its canvas position, with $`s = 2^{z-Z}`$:
 
 ```math
 \mathbf{d} = \mathbf{c} + (256sX,\ 256sY) - \mathbf{f}|_z
