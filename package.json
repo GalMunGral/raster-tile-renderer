@@ -1,9 +1,10 @@
 {
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --outdir=dist",
-    "dev": "npm run build -- --watch"
+    "build": "vite build",
+    "dev": "vite"
   },
   "devDependencies": {
-    "esbuild": "^0.17.19"
+    "esbuild": "^0.17.19",
+    "vite": "^8.0.11"
   }
 }
