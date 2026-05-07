@@ -2,7 +2,7 @@
 
 **Live demo:** https://galmungral.github.io/raster-tile-renderer/
 
-## Rhetorical DesignTile selection
+## Rhetorical Design
 
 ### Purpose
 
@@ -74,4 +74,4 @@ The top-left corner of tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in
 
 ### Tile selection
 
-The tile containing $`\mathbf{f}`$ satisfies $`256sX \leq f_x < 256s(X+1)`$, giving $`X = \lfloor f_x / 256s \rfloor`$ where $`(f_x, f_y) = \mathbf{f}|_z`$. Its left edge is at $`\psi_{\mathbf{f},z}(\mathbf{t})_x = c_x - (f_x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
+Let $`(x, y, 2^z)`$ be the representative of $`\mathbf{f}`$ at zoom $`z`$. The tile containing $`\mathbf{f}`$ satisfies $`256sX \leq x < 256s(X+1)`$, giving $`X = \lfloor x / 256s \rfloor`$. Its left edge is at canvas $`c_x - (x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
