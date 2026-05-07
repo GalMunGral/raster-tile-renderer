@@ -35,7 +35,7 @@ M(\lambda, \phi) = \Bigl[\Bigl(\tfrac{128}{\pi}(\lambda + \pi),\; \tfrac{128}{\p
 Let $`N`$ be the tile size in pixels. Tiles partition $`\mathcal{T}`$ into regions: tile $`(X, Y, Z)`$ covers
 
 ```math
-\{[(x, y, 2^Z)] : x \in [NX,\ N(X+1)),\ y \in [NY,\ N(Y+1))\}
+\{[(x, y, 2^Z)] \mid NX \leq x < N(X+1),\ NY \leq y < N(Y+1)\}
 ```
 
 The camera is likewise a point in $`\mathcal{T}`$.
