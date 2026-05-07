@@ -32,7 +32,7 @@ The Mercator projection maps each point $`(\lambda, \phi)`$ on the earth's surfa
 M(\lambda, \phi) = \Bigl[\Bigl(\tfrac{128}{\pi}(\lambda + \pi),\; \tfrac{128}{\pi}\bigl(\pi - \ln\tan(\tfrac{\pi}{4} + \tfrac{\phi}{2})\bigr),\; 1\Bigr)\Bigr]
 ```
 
-The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ lies in $`[256X,\ 256(X+1)) \times [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
+The representative at zoom $`z`$ is the canonical one scaled by $`2^z`$. Tiles partition $`\mathcal{W}`$ into regions: tile $`(X, Y, Z)`$ covers the set of classes whose representative at zoom $`Z`$ is $`(x', y', 2^Z)`$ with $`x' \in [256X,\ 256(X+1))`$ and $`y' \in [256Y,\ 256(Y+1))`$. The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
