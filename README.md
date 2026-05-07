@@ -50,7 +50,7 @@ Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \ma
 
 **Panning.** A drag $`\Delta`$ maps 1:1 to displacement in $`|_z`$ coordinates: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta`$.
 
-**Zooming.** Let $`s = 2^{z'-z}`$. The point in $`\mathcal{T}`$ under the cursor must be invariant:
+**Zooming.** The point in $`\mathcal{T}`$ under the cursor must be invariant:
 
 ```math
 \varphi_{\mathbf{f},z}(\mathbf{e}) = \varphi_{\mathbf{f}',z'}(\mathbf{e})
@@ -59,7 +59,7 @@ Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \ma
 Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ```math
-\mathbf{f}|_{z'} = s\,\mathbf{f}|_z + (s - 1)(\mathbf{e} - \mathbf{c})
+\mathbf{f}|_{z'} = 2^{z'-z}\,\mathbf{f}|_z + (2^{z'-z} - 1)(\mathbf{e} - \mathbf{c})
 ```
 
 ### Tile placement
