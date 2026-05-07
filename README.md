@@ -42,26 +42,26 @@ The camera is likewise a point in $`\mathcal{W}`$.
 
 ### Camera movement
 
-For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c}_s = (W/2, H/2)`$ be the canvas center in screen space $`\mathbb{R}^2_s`$. The camera $`\mathbf{f} \in \mathcal{W}`$ is the world point corresponding to the canvas center $`\mathbf{c}_s`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-world map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2_s \to \mathcal{W}`$:
+For $`\mathbf{p} \in \mathcal{W}`$, write $`\mathbf{p}|_z \in \mathbb{R}^2`$ for its representative at zoom $`z`$ — the first two coordinates of the triple $`(x, y, 2^z)`$ in the equivalence class. Let $`\mathbf{c} = (W/2, H/2)`$ be the canvas center. The camera $`\mathbf{f} \in \mathcal{W}`$ is the world point corresponding to $`\mathbf{c}`$. At a fixed zoom $`z`$, world-pixel space and screen space share the same scale, so the screen displacement from center equals the difference of $`|_z`$ coordinates. This defines the screen-to-world map $`\varphi_{\mathbf{f},z} : \mathbb{R}^2 \to \mathcal{W}`$:
 
 ```math
-\varphi_{\mathbf{f},z}(\mathbf{d}_s) = \bigl[(\mathbf{d}_s - \mathbf{c}_s + \mathbf{f}|_z,\ 2^z)\bigr]
+\varphi_{\mathbf{f},z}(\mathbf{d}) = \bigl[(\mathbf{d} - \mathbf{c} + \mathbf{f}|_z,\ 2^z)\bigr]
 ```
 
-Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c}_s + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a world point.
+Its inverse $`\psi_{\mathbf{f},z}(\mathbf{p}) = \mathbf{c} + \mathbf{p}|_z - \mathbf{f}|_z`$ gives the screen position of a world point.
 
-**Panning.** A drag $`\Delta_s \in \mathbb{R}^2_s`$ maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta_s`$.
+**Panning.** A drag $`\Delta`$ maps 1:1 to world-pixel displacement: $`\mathbf{f}'|_z = \mathbf{f}|_z + \Delta`$.
 
 **Zooming.** Let $`s = 2^{z'-z}`$. The world point under the cursor must be invariant:
 
 ```math
-\varphi_{\mathbf{f},z}(\mathbf{e}_s) = \varphi_{\mathbf{f}',z'}(\mathbf{e}_s)
+\varphi_{\mathbf{f},z}(\mathbf{e}) = \varphi_{\mathbf{f}',z'}(\mathbf{e})
 ```
 
 Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ```math
-\mathbf{f}|_{z'} = s\,\mathbf{f}|_z + (s - 1)(\mathbf{e}_s - \mathbf{c}_s)
+\mathbf{f}|_{z'} = s\,\mathbf{f}|_z + (s - 1)(\mathbf{e} - \mathbf{c})
 ```
 
 ### Tile placement
@@ -69,9 +69,9 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 Tile $`(X, Y, Z)`$ is the point $`\mathbf{t} = [(256X, 256Y, 2^Z)] \in \mathcal{W}`$, with $`\mathbf{t}|_z = (256sX, 256sY)`$ where $`s = 2^{z-Z}`$. Its canvas position is $`\psi_{\mathbf{f},z}(\mathbf{t})`$:
 
 ```math
-\mathbf{d}_s = \mathbf{c}_s + (256sX,\ 256sY) - \mathbf{f}|_z
+\mathbf{d} = \mathbf{c} + (256sX,\ 256sY) - \mathbf{f}|_z
 ```
 
 ### Tile selection
 
-The tile containing $`\mathbf{f}`$ satisfies $`256sX \leq f_x < 256s(X+1)`$, giving $`X = \lfloor f_x / 256s \rfloor`$ where $`(f_x, f_y) = \mathbf{f}|_z`$. Its left edge is at $`V_{\mathbf{f},z}(\mathbf{t})_x = c_x - (f_x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
+The tile containing $`\mathbf{f}`$ satisfies $`256sX \leq f_x < 256s(X+1)`$, giving $`X = \lfloor f_x / 256s \rfloor`$ where $`(f_x, f_y) = \mathbf{f}|_z`$. Its left edge is at $`\psi_{\mathbf{f},z}(\mathbf{t})_x = c_x - (f_x \bmod 256s)`$. The visible range extends until tiles cover the full canvas width, and analogously for $`Y`$.
