@@ -66,10 +66,10 @@ Expanding and solving for $`\mathbf{f}|_{z'}`$:
 
 ### Tile placement
 
-Tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in \mathcal{T}`$. Its canvas position, with $`s = 2^{z-Z}`$:
+Tile $`(X, Y, Z)`$ is the class $`[(256X, 256Y, 2^Z)] \in \mathcal{T}`$. Its canvas position $`\mathbf{d}`$ satisfies $`\varphi_{\mathbf{f},z}(\mathbf{d}) = [(256X, 256Y, 2^Z)]`$. Taking $`|_z`$ of both sides with $`s = 2^{z-Z}`$:
 
 ```math
-\mathbf{d} = \mathbf{c} + (256sX,\ 256sY) - \mathbf{f}|_z
+\mathbf{d} - \mathbf{c} + \mathbf{f}|_z = (256sX,\ 256sY) \implies \mathbf{d} = \mathbf{c} + (256sX,\ 256sY) - \mathbf{f}|_z
 ```
 
 ### Tile selection
